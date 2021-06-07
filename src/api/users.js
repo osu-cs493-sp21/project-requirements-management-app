@@ -3,30 +3,30 @@ exports.router = router
 
 // Route to list all of a user's photos.
 router.get('/:userId/photo', async (req, res) => {
-  const userId = parseInt(req.params.userId);
-  const userPhoto = await seqUser.findOne({ where: { id: userId } })
-  res.status(200).json({
-    photo: userPhoto.photoPath
-  });
+  try{
+    const userId = parseInt(req.params.userId);
+    const userPhoto = await seqUser.findOne({ where: { id: userId } })
+    if (!userPhoto) { throw "User ID not found in database"}
+    res.status(200).json({
+      photo: userPhoto.photoPath
+    });
+  } catch (error){ res.status(400).json({error: error}) }
 });
 
 // Create user
 router.post('/', async (req, res) => {
-  console.log(req.body)
-  const user = req.body
-  const existingUser = await seqUser.findOne({ where: { email: user.email } })
-  if (existingUser) {
-    res.status(400).json({ error: "Account already exists" });
-  } else {
+  try{
+    const user = req.body
+    const existingUser = await seqUser.findOne({ where: { email: user.email } })
+    if (existingUser) { throw "Account already exists" };
     let createResult = await seqUser.create(user);
-    console.log(createResult)
     res.status(201).json({
       id: createResult.id,
       links: {
         user: `/users/${createResult.id}`
       }
     })
-  }
+  } catch (error){ res.status(400).json({error: error}) }
 });
 
 // // Login
