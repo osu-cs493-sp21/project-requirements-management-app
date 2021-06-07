@@ -3,7 +3,6 @@ exports.router = router
 
 router.get('/:userId/photo', async (req, res) => {
   try { // TODO: This should return a photo, not json. The url is retrieved with user endpoint
-    if (!req.user) { throw "You must authorize with a jwt" }
     const userId = parseInt(req.params.userId)
     const userPhoto = await seqUser.findOne({ where: { id: userId } })
     if (req.user.projectId != 1 && req.user.projectId != userPhoto.projectId) { throw "You are not authorized to view this user" }
@@ -16,7 +15,6 @@ router.get('/:userId/photo', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    if (!req.user) { throw "Missing or invalid authorization token" }
     if (req.user.projectId != 1) { throw "You are not authorized to create new users" }
     const user = req.body
     const existingUser = await seqUser.findOne({ where: { email: user.email } })
@@ -44,7 +42,6 @@ router.get('/login/', async (req, res) => {
 
 router.get('/:userid/', async (req, res) => {
   try {
-    if (!req.user) { throw "You must authorize with a jwt" }
     const user = await seqUser.findOne({ where: { id: req.params.userid } })
     if (!user) { throw "User not found" }
     if (
