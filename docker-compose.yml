@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  mysql:
+    container_name: ${MYSQL_HOSTNAME}
+    hostname: ${MYSQL_HOSTNAME}
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - ${MYSQL_PORT}:${MYSQL_PORT}
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - mysql_final_proj:/var/lib/mysql
+#  nodejs:
+#    image: keymetrics/pm2:14-alpine
+#    container_name: final_node
+#    restart: unless-stopped
+#    env_file: .env
+#    depends_on:
+#      - "mysql"
+#    ports:
+#      - "${PORT}:${PORT}"
+#    volumes:
+#      - ./src:/src
+#    command: > # This way we don't need a Dockerfile :)
+#      sh -c "
+#      cd /src
+#      && npm install
+#      && pm2-runtime start pm2.json
+#      "
+volumes:
+  mysql_final_proj:
