@@ -1,10 +1,11 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const bcrypt = require("bcrypt");
 
-global.seq =  new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {
+global.seq = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_USER, process.env.MYSQL_PASSWORD, {
     host: process.env.MYSQL_HOSTNAME,
     port: process.env.MYSQL_PORT,
     dialect: 'mysql',
+    // logging: false,
     define: {
         freezeTableName: true,
         timestamps: false
@@ -26,14 +27,13 @@ global.seqUser = seq.define('user', {
             this.setDataValue('password', bcrypt.hashSync(password, 10));
         }
     }
-},
-{
+}, {
     defaultScope: {
         attributes: { exclude: ['password'] },
     },
     scopes: {
         includePassword: {}
-      }
+    }
 })
 
 seqUser.prototype.checkPassword = function (password) {
@@ -58,23 +58,23 @@ global.seqDefinition = seq.define('definition', {
 })
 
 // user
-seqProject.hasMany(seqUser)
+seqProject.hasMany(seqUser, { foreignKey: { name: 'projectId', allowNull: false } })
 seqUser.belongsTo(seqProject)
 
 // feature
-seqProject.hasMany(seqFeature)
+seqProject.hasMany(seqFeature, { foreignKey: { name: 'projectId', allowNull: false } })
 seqFeature.belongsTo(seqProject)
 
 // question
-seqUser.hasMany(seqQuestion)
+seqUser.hasMany(seqQuestion, { foreignKey: { name: 'userId', allowNull: false } })
 seqQuestion.belongsTo(seqUser)
-seqFeature.hasMany(seqQuestion)
+seqFeature.hasMany(seqQuestion, { foreignKey: { name: 'featureId', allowNull: false } })
 seqQuestion.belongsTo(seqFeature)
 
 // definition
-seqFeature.hasMany(seqDefinition)
+seqFeature.hasMany(seqDefinition, { foreignKey: { name: 'featureId', allowNull: false } })
 seqDefinition.belongsTo(seqFeature)
-seqUser.hasMany(seqDefinition)
+seqUser.hasMany(seqDefinition, { foreignKey: { name: 'userId', allowNull: false } })
 seqDefinition.belongsTo(seqUser)
 
 
