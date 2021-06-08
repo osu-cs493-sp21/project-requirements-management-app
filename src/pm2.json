@@ -8,7 +8,6 @@
   "max_restarts": 30,
   "restart_delay": 3000,
   "ignore_watch": ["node_modules", "logs", ".git"],
-  "max_memory_restart": "900M",
   "env": {
     "NODE_ENV": "development",
     "MYSQL_ROOT_PASSWORD": "asdfg",
