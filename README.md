@@ -1,3 +1,9 @@
+Update: Please run these commands to use the new pm2 config   
+```
+pm2 delete all   
+pm2 start pm2.json 
+```
+
 ## Schema
 
 <img alt="schema" src="./schema.png">
