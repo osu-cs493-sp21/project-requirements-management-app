@@ -18,6 +18,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     if (req.user.projectId != 1) { throw "You are not authorized to create new projects" }
+
+
     const project = req.body
     const existingProject = await seqProject.findOne({ where: { name: project.name } })
     if (existingProject) { throw "Project name already exists" }
@@ -31,10 +33,12 @@ router.post('/', async (req, res) => {
 
 router.get('/:projectId', async (req, res) => {
   try {
-    const projectId = parseInt(req.params.projectId)
+    const id = parseInt(req.params.projectId)
     if (req.user.projectId != 1) { throw "You are not authorized to view this project" }
 
-    const project = await seqProject.findOne({ where: { id: projectId } })
+    if (!req.body.name) { throw "Invalid request body." }
+
+    const project = await seqProject.findOne({ where: { id: id } })
 
     if (!project) { throw "Project ID not found in database" }
     res.status(200).json({
@@ -46,21 +50,34 @@ router.get('/:projectId', async (req, res) => {
 
 router.put('/:projectId', async (req, res) => {
   try {
-    const projectId = parseInt(req.params.projectId)
+    const id = parseInt(req.params.projectId)
     if (req.user.projectId != 1) { throw "You are not authorized to edit this project" }
 
     if (!req.body.name) { throw "Invalid request body." }
 
-    const project = await seqProject.update({ name: req.body.name }, {
-                      where: { id: projectId }
+    const success = await seqProject.update({ name: req.body.name }, {
+                      where: { id: id }
                     });
 
-    if (!project) { throw "Project ID not found in database" }
+    if (!success) { throw "Error editting Project" }
+    const project = await seqProject.findOne({ where: { id: id } })
 
-
-    res.status(200).json({
+    res.status(201).json({
       id: project.id,
       name: project.name
     })
+  } catch (error) { res.status(400).json({ error: error }) }
+})
+
+router.delete('/:projectId', async (req, res) => {
+  try {
+    const id = parseInt(req.params.projectId)
+    if (req.user.projectId != 1) { throw "You are not authorized to delete this project" }
+
+    const success = await seqProject.destroy({ where: { id: id } });
+
+    if (!success) { throw "Error deleting Project" }
+
+    res.status(202).json()
   } catch (error) { res.status(400).json({ error: error }) }
 })
