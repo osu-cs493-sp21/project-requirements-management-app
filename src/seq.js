@@ -54,7 +54,7 @@ global.seqDefinition = seq.define('definition', {
     type: { type: DataTypes.STRING, allowNull: false },
     name: { type: DataTypes.STRING, allowNull: false },
     description: { type: DataTypes.STRING, allowNull: false },
-    userType: { type: DataTypes.STRING, allowNull: false }
+    userType: { type: DataTypes.STRING, allowNull: true }
 })
 
 // user
