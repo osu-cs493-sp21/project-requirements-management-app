@@ -69,29 +69,17 @@ router.get('/:id/', async (req, res) => {
   } catch (error) { res.status(400).json({ error: error }) }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:userId', async (req, res) => {
   try {
-    const id = parseInt(req.params.id)
-    if (req.user.projectId != 1 ) { throw "You are not authorized to edit this user" }
-
-    const oldUser = await seqUser.findOne({ where: { id: id } })
-
-    let updateData = {};
-    updateData.name = req.body.name || user.name;
-    updateData.email = req.body.email || user.email;
-    updateData.photoPath = req.body.photoPath || user.photoPath;
-    updateData.password = req.body.password || user.password;
-    const success = await seqUser.update(updateData, { where: { id: id } })
-
-    if (!success) { throw "Error editting Project" }
-    const newUser = await seqUser.findOne({ where: { id: id } })
-
-    res.status(201).json({
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      photoPath: newUser.photoPath,
-      projectId: newUser.projectId
+    const userId = parseInt(req.params.userId)
+    const newUserData = req.body
+    if (req.user.projectId != 1 ) { throw "You are not authorized to edit users" }
+    const user = await seqUser.findOne({ where: { id: userId } })
+    if (!user) { throw "User not found" }
+    const success = await user.update(newUserData)
+    if (!success) { throw "Error editing user" }
+    res.status(202).json({
+      links: { user: `/users/${userId}` }
     })
   } catch (error) { res.status(400).json({ error: error }) }
 })
