@@ -17,6 +17,8 @@
     "MYSQL_HOSTNAME": "localhost",
     "MYSQL_PORT": "3306",
     "MYSQL_DATABASE": "final_proj",
+    "REDIS_HOST": "localhost",
+    "REDIS_PORT": "6379",
     "PORT": "8000"
   },
   "env_production" : {

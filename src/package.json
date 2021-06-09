@@ -22,6 +22,7 @@
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "express-jwt": "^6.0.0",
+    "ioredis": "^4.27.5",
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.2",
     "serialize-error": "^8.1.0",

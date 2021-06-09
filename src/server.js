@@ -16,6 +16,9 @@ app.use(express.json())
 app.use(express.static('public'))
 app.use(express.static('userImages'))
 
+const rateLimit = require('./rate-limit');
+app.use(rateLimit);
+
 global.ejwt = require('express-jwt')
 global.jwt = require('jsonwebtoken')
 global.jwtSecret = "hegeon4ebnjk5tsn9wg0"

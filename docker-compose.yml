@@ -12,6 +12,10 @@ services:
     volumes:
       - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
       - mysql_final_proj:/var/lib/mysql
+  redis:
+    image: redis:5-alpine
+    ports:
+      - 6379:6379
 #  nodejs:
 #    image: keymetrics/pm2:14-alpine
 #    container_name: final_node
