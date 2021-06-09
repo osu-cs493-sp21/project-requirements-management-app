@@ -37,7 +37,7 @@ CREATE TABLE `definition` (
   KEY `userId` (`userId`),
   CONSTRAINT `definition_ibfk_3` FOREIGN KEY (`featureId`) REFERENCES `feature` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `definition_ibfk_4` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `definition` (
 
 LOCK TABLES `definition` WRITE;
 /*!40000 ALTER TABLE `definition` DISABLE KEYS */;
-INSERT INTO `definition` VALUES (1,'story','Cart Quantity','As a user, when I add an item to my cart, I want to see an icon that shows the total number of items in my cart','user',1,2),(2,'testcase','Cart Popup','When the cart is clicked, a sidebar should appear with the cart contents','user',1,1);
+INSERT INTO `definition` VALUES (1,'story','Cart Quantity','As a user, when I add an item to my cart, I want to see an icon that shows the total number of items in my cart','user',1,2),(2,'testcase','Cart Popup','When the cart is clicked, a sidebar should appear with the cart contents','user',1,1),(3,'testcase','example','example','user',1,2),(4,'testcase','example','example','user',1,2);
 /*!40000 ALTER TABLE `definition` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,7 @@ CREATE TABLE `feature` (
   PRIMARY KEY (`id`),
   KEY `projectId` (`projectId`),
   CONSTRAINT `feature_ibfk_1` FOREIGN KEY (`projectId`) REFERENCES `project` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `feature` (
 
 LOCK TABLES `feature` WRITE;
 /*!40000 ALTER TABLE `feature` DISABLE KEYS */;
-INSERT INTO `feature` VALUES (1,'Web Shop','Make a web shop for buying all the things','The client wants it to look purty',3);
+INSERT INTO `feature` VALUES (1,'Web Shop','Make a web shop for buying all the things','The client wants it to look purty',3),(2,'Example Feature','example feature','example feature',3),(3,'Example Feature','example feature','example feature',3),(4,'Example Feature','example feature','example feature',3),(5,'Example Feature','example feature','example feature',3),(6,'Example Feature','example feature','example feature',3),(7,'Example Feature','example feature','example feature',3),(8,'Example Feature','example feature','example feature',3),(9,'Example Feature','example feature','example feature',3),(10,'Example Feature','example feature','example feature',3),(11,'Example Feature','example feature','example feature',3);
 /*!40000 ALTER TABLE `feature` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `question` (
   KEY `featureId` (`featureId`),
   CONSTRAINT `question_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `question_ibfk_4` FOREIGN KEY (`featureId`) REFERENCES `feature` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `question` (
 
 LOCK TABLES `question` WRITE;
 /*!40000 ALTER TABLE `question` DISABLE KEYS */;
-INSERT INTO `question` VALUES (1,'What font size should be used for the item count?',1,1);
+INSERT INTO `question` VALUES (1,'What font size should be used for the item count?',1,1),(2,'question2',3,3);
 /*!40000 ALTER TABLE `question` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-07 20:50:45
+-- Dump completed on 2021-06-09 13:52:03
