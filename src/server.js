@@ -16,9 +16,6 @@ app.use(express.json())
 app.use(express.static('public'))
 app.use(express.static('userImages'))
 
-const rateLimit = require('./rate-limit');
-app.use(rateLimit);
-
 global.ejwt = require('express-jwt')
 global.jwt = require('jsonwebtoken')
 global.jwtSecret = "hegeon4ebnjk5tsn9wg0"
@@ -39,6 +36,9 @@ app.use(function (req, res, next) {
 //   req.user = { projectId: 1 }
 //   next()
 // })
+
+const rateLimit = require('./rate-limit');
+app.use(rateLimit);
 
 const api = require('./api')
 app.use('/', api)
