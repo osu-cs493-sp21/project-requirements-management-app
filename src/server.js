@@ -7,8 +7,11 @@ Object.defineProperty(Error.prototype, 'toJSON', {
 })
 
 const express = require('express')
+const socket = require('socket.io')
+
 const app = express()
 const port = process.env.PORT || 8000
+
 app.use(express.json())
 app.use(express.static('public'))
 app.use(express.static('userImages'))
@@ -43,6 +46,9 @@ app.use('*', function (req, res) {
   })
 })
 
-app.listen(port, function () {
+const server = app.listen(port, function () {
   console.log("== Server is running on port", port)
 })
+
+const io = new socket.Server(server)
+require('./socket.js')(io);
