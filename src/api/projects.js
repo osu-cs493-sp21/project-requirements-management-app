@@ -55,7 +55,7 @@ router.get('/:id', async (req, res) => {
           features: features
         })
     })
-    
+
   } catch (error) { res.status(400).json({ error: error }) }
 })
 

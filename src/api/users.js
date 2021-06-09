@@ -65,7 +65,7 @@ router.post('/', async (req, res) => {
     await seqUser.build(user).validate()
     const existingUser = await seqUser.findOne({ where: { email: user.email } })
     if (existingUser) { throw "Account already exists" }
-    let createResult = await newUser.save()
+    let createResult = await seqUser.create(user)
     res.status(201).json({
       id: createResult.id,
       links: {
