@@ -14,11 +14,16 @@ router.get('/', async (req, res) => {
   } catch (error) { res.status(400).json({ error: error }) }
 })
 
-router.get('/:id/photo', async (req, res) => {
+router.get('/:userId/photo', async (req, res) => {
   try { // TODO: This should return a photo, not json.
-    const userId = parseInt(req.params.id)
+    const userId = parseInt(req.params.userId)
+    if (isNaN(userId)) { throw "User ID in path is not valid"}
+    
     const userPhoto = await seqUser.findOne({ where: { id: userId } })
-    if (req.user.projectId != 1 && req.user.projectId != userPhoto.projectId) { throw "You are not authorized to view this user" }
+    if (req.user.projectId != 1 && req.user.projectId != userPhoto.projectId) {
+      throw "You are not authorized to view this user"
+    }
+
     if (!userPhoto) { throw "User ID not found in database" }
     res.status(200).json({
       photo: userPhoto.photoPath
@@ -30,9 +35,10 @@ router.post('/', async (req, res) => {
   try {
     if (req.user.projectId != 1) { throw "You are not authorized to create new users" }
     const user = req.body
+    await seqUser.build(user).validate()
     const existingUser = await seqUser.findOne({ where: { email: user.email } })
     if (existingUser) { throw "Account already exists" }
-    let createResult = await seqUser.create(user)
+    let createResult = await newUser.save()
     res.status(201).json({
       id: createResult.id,
       links: {
@@ -57,21 +63,26 @@ router.get('/login/', async (req, res) => {
   } catch (error) { res.status(400).json({ error: error }) }
 })
 
-router.get('/:id/', async (req, res) => {
+router.get('/:userId/', async (req, res) => {
   try {
-    const user = await seqUser.findOne({ where: { id: req.params.id } })
-    if (!user) { throw "User not found" }
-    if (
-      req.user.projectId != 1
-      && req.user.projectId != user.projectId) { throw "You are not authorized to view this user" }
-    res.status(200).json(user)
+    const userId = parseInt(req.params.userId)
+    if (isNaN(userId)) { throw "User ID in path is not valid"}
 
+    const user = await seqUser.findOne({ where: { id: userId } })
+    if (!user) { throw "User not found" }
+
+    if (req.user.projectId != 1 && req.user.projectId != user.projectId) {
+      throw "You are not authorized to view this user"
+    }
+
+    res.status(200).json(user)
   } catch (error) { res.status(400).json({ error: error }) }
 });
 
 router.put('/:userId', async (req, res) => {
   try {
     const userId = parseInt(req.params.userId)
+    if (isNaN(userId)) { throw "User ID in path is not valid"}
     const newUserData = req.body
     if (req.user.projectId != 1 ) { throw "You are not authorized to edit users" }
     const user = await seqUser.findOne({ where: { id: userId } })
@@ -85,12 +96,13 @@ router.put('/:userId', async (req, res) => {
 })
 
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:userId', async (req, res) => {
   try {
-    const id = parseInt(req.params.id)
+    const userId = parseInt(req.params.userId)
+    if (isNaN(userId)) { throw "User ID in path is not valid"}
     if (req.user.projectId != 1 ) { throw "You are not authorized to delete this User" }
 
-    const success = await seqUser.destroy({ where: { id: id } });
+    const success = await seqUser.destroy({ where: { id: userId } });
 
     if (!success) { throw "Error deleting User" }
 

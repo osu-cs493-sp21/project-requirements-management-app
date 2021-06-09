@@ -3,7 +3,7 @@ require('./seq')
 const { serializeError } = require('serialize-error')
 // This will convert errors into JSON
 Object.defineProperty(Error.prototype, 'toJSON', {
-  value: function () { return serializeError(this) }
+  value: function () { return this.message.split('\n') }
 })
 
 const express = require('express')
