@@ -4,16 +4,29 @@
     <title>Project Requirements Search</title>
 
     <style>
+      body{
+        margin: 30px;
+        font-size: 16px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
       #message {
-        margin: 10px 0;
+        margin: 30px auto;
+      }
+      .type{
+        color:rgb(38, 78, 165);
+        font-weight: bold;
+      }
+      li{
+        list-style: none;
+        padding: 10px 0;
       }
     </style>
   </head>
 
   <body>
-    <h1>Project Requirements Search</h1>
+    <h2>Project Requirements Search</h2>
 
-    <input type="text" id="search">
+    <input onkeyup="submit()" type="text" id="search">
     <button onclick="submit()" id="search_btn">Search</button>
 
     <div id="message">
@@ -40,22 +53,21 @@
       socket.emit('search', query, (response) => {
         const responseElem = document.getElementById('response');
 
-        queryElem.value = '';
         buttonElem.disabled = false;
 
         if (response.length > 0) {
           messageElem.innerHTML = `<i>Search results for "${query}":</i>`;
           responseElem.innerHTML = response.map(i => {
             if (i.entity === 'feature') {
-              return `<li>(${i.entity}) ${i.title}: ${i.description}</li>`
+              return `<li><span class="type">(${i.entity})</span> ${i.title}: ${i.description}</li>`
             }
 
             if (i.entity === 'question') {
-              return `<li>(${i.entity}) ${i.question}</li>`
+              return `<li><span class="type">(${i.entity})</span> ${i.question}</li>`
             }
 
             if (i.entity === 'definition') {
-              return `<li>(${i.entity}) ${i.name}: ${i.description}</li>`
+              return `<li><span class="type">(${i.entity})</span> ${i.name}: ${i.description}</li>`
             }
           }).join('\n');
         } else {
