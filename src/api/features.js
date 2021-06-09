@@ -30,15 +30,13 @@ router.post('/:projectId/features/', async (req, res) => {
         //add the projectId from the route to the feature.
         feature.projectId = projectId;
 
-        console.log("Creating new feature: ", feature);
-
         //create the feature in db
         const createResult = await seqFeature.create(feature);
         res.status(201).json({
             id: createResult.id,
             links: {
                 project: `/projects/${projectId}`,
-                feature: `/projects/${projectId}/features/${createResult.id}`,
+                //feature: `/projects/${projectId}/features/${createResult.id}`,
               }
         })
     } catch (error) { res.status(400).json({ error: error }) }
@@ -68,10 +66,10 @@ router.put('/:projectId/features/:featureId', async (req, res) => {
 
         if (!updateResult) { throw "Error updating feature" }
         res.status(200).send({
-            id: updateResult.id,
+            id: featureId,
             links: {
               project: `/projects/${projectId}`,
-              feature: `/projects/${projectId}/features/${featureId}`,
+              //feature: `/projects/${projectId}/features/${featureId}`,
             }
         });
     } catch (error) { res.status(400).json({ error: error }) }

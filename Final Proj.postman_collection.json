@@ -491,22 +491,208 @@
 							"name": "Delete a feature",
 							"request": {
 								"method": "DELETE",
-								"header": [],
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
 								"url": {
-									"raw": "localhost:8000/projects//features/1",
+									"raw": "localhost:8000/projects/:projectid/features/:featureid",
 									"host": [
 										"localhost"
 									],
 									"port": "8000",
 									"path": [
 										"projects",
-										"",
+										":projectid",
 										"features",
-										"1"
+										":featureid"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "1"
+										}
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid"
+											],
+											"query": [
+												{
+													"key": "",
+													"value": null,
+													"disabled": true
+												}
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "58"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3a-pLahxzD3HTkK3KhFncjBpLSRia4\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 06:14:24 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"You are not authorized to delete this feature.\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid"
+											],
+											"query": [
+												{
+													"key": "",
+													"value": null,
+													"disabled": true
+												}
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "4"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:49:38 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
 						},
 						{
 							"name": "Modify an existing feature",
@@ -516,7 +702,8 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{jwt1}}",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									},
 									{
 										"key": "Authorization",
@@ -557,7 +744,179 @@
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"title\": \"MODIFIED Example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "42"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"2a-b4EZF0OgXCEIzFwtDTNeaI3CRbU\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:49:53 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 1,\n    \"links\": {\n        \"project\": \"/projects/1\"\n    }\n}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"title\": \"MODIFIED Example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "56"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"38-ydppxMaSWa+FiovIU4a/MmjQV/E\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:50:15 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"You are not authorized to edit this feature.\"\n}"
+								}
+							]
 						}
 					]
 				},
@@ -607,7 +966,1031 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										""
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "74"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4a-wFau49yOgN0EgTuWi/OXQMPmvBg\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Jun 2021 08:47:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"You are not authorized to create new features for this project\"\n}"
+						},
+						{
+							"name": "Duplicate Feature Name",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										""
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "39"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"27-V/F0hB/YTOXjIE5F1XdrBvJ9H5Y\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Jun 2021 08:48:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Feature name already exists\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"Another  example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										""
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-nBFJZ0dzDhXH/bcCb0XcumMBXlw\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Jun 2021 08:48:48 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 4,\n    \"links\": {\n        \"project\": \"/projects/4\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "questions",
+			"item": [
+				{
+					"name": "{questionId}",
+					"item": [
+						{
+							"name": "Modify an existing question",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question\": \"I have modified the test question!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"questions",
+										":questionid"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "1"
+										},
+										{
+											"key": "questionid",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"question\": \"I have modified the test question!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"questions",
+												":questionid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "1"
+												},
+												{
+													"key": "questionid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "74"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4a-wFau49yOgN0EgTuWi/OXQMPmvBg\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:42:00 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"You are not authorized to create new features for this project\"\n}"
+								},
+								{
+									"name": "FeatureID not found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"question\": \"I have modified the test question!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"questions",
+												":questionid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "1"
+												},
+												{
+													"key": "questionid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "44"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"2c-aZqq5DWTp6AW2laImSKJaMdjVxw\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:42:46 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature ID not found in database\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"question\": \"I have modified the test question!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"questions",
+												":questionid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "2"
+												},
+												{
+													"key": "questionid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "42"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"2a-+OG8I/JDHt6ERkmoyr3MqRNlGho\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:43:28 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 2,\n    \"links\": {\n        \"project\": \"/projects/1\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete a question",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"questions",
+										":questionid"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "2"
+										},
+										{
+											"key": "questionid",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"questions",
+												":questionid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "2"
+												},
+												{
+													"key": "questionid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "58"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3a-EhbI3DBakJWYSNxonoJQueAFSKw\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:46:55 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"You are not authorized to delete this question\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"questions",
+												":questionid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "2"
+												},
+												{
+													"key": "questionid",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 08:47:15 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Add a new question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt1}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt3}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"question\": \"This is a test question?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/projects/:projectid/features/:featureid/questions",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								":projectid",
+								"features",
+								":featureid",
+								"questions"
+							],
+							"variable": [
+								{
+									"key": "projectid",
+									"value": "1"
+								},
+								{
+									"key": "featureid",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question\": \"This is a test question?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/questions",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"questions"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-b4EZF0OgXCEIzFwtDTNeaI3CRbU\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Jun 2021 08:39:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"links\": {\n        \"project\": \"/projects/1\"\n    }\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"question\": \"This is a test question?\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/questions",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"questions"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4b-XWv/+pcizfOgkmFYvDk3q7mm4mA\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Jun 2021 08:44:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"You are not authorized to create new questions for this project\"\n}"
+						}
+					]
 				}
 			]
 		}
