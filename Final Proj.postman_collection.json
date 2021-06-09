@@ -488,6 +488,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Download a photo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/userImages/0dfee52c84cce7c0d62598a3686f7b79.jpg",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"userImages",
+								"0dfee52c84cce7c0d62598a3686f7b79.jpg"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -700,7 +731,7 @@
 										}
 									],
 									"cookie": [],
-									"body": null
+									"body": ""
 								},
 								{
 									"name": "Feature not associated with project",
@@ -2139,7 +2170,7 @@
 										}
 									],
 									"cookie": [],
-									"body": null
+									"body": ""
 								},
 								{
 									"name": "Feature not associated",
@@ -3025,7 +3056,7 @@
 										}
 									],
 									"cookie": [],
-									"body": null
+									"body": ""
 								},
 								{
 									"name": "Feature not associated with project",

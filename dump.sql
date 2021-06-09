@@ -159,7 +159,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Admin User 1','admin1@gmail.com','userImages/user1.jpg','$2b$10$xaZd9W9LiIpymLEeY0tcweqR5hZsjx/QI97x7CvmrmR5B7S5CZVZm',1),(2,'Client User 1','user1@client1.com','','$2b$10$xaZd9W9LiIpymLEeY0tcweqR5hZsjx/QI97x7CvmrmR5B7S5CZVZm',3),(3,'Client User 2','user2@client1.com',NULL,'$2b$10$xaZd9W9LiIpymLEeY0tcweqR5hZsjx/QI97x7CvmrmR5B7S5CZVZm',3);
+INSERT INTO `user` VALUES (1,'Admin User 1','admin1@gmail.com','/userImages/0dfee52c84cce7c0d62598a3686f7b79.jpg','$2b$10$xaZd9W9LiIpymLEeY0tcweqR5hZsjx/QI97x7CvmrmR5B7S5CZVZm',1),(2,'Client User 1','user1@client1.com','/userImages/0dfee52c84cce7c0d62598a3686f7b79.jpg','$2b$10$xaZd9W9LiIpymLEeY0tcweqR5hZsjx/QI97x7CvmrmR5B7S5CZVZm',3),(3,'Client User 2','user2@client1.com','/userImages/0dfee52c84cce7c0d62598a3686f7b79.jpg','$2b$10$xaZd9W9LiIpymLEeY0tcweqR5hZsjx/QI97x7CvmrmR5B7S5CZVZm',3);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -172,4 +172,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-06-09 13:52:03
+-- Dump completed on 2021-06-09 15:12:01
