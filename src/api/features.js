@@ -1,12 +1,13 @@
 const router = require('express').Router()
 exports.router = router
 
-router.post('/', async (req, res) => {
+//Route to create a new feature.
+router.post('/:projectId/features/', async (req, res) => {
     try {
-        const projectId =  parseInt(req.params.projectId);
+        const projectId = parseInt(req.params.projectId);
 
         //if user is not a developer or a user of this project, reject.
-        if (req.user.projectId != 1 || req.user.projectId != projectId) {  
+        if (req.user.projectId != 1 && req.user.projectId != projectId) {  
             throw "You are not authorized to create new features for this project" 
         }
 
@@ -34,18 +35,23 @@ router.post('/', async (req, res) => {
         //create the feature in db
         const createResult = await seqFeature.create(feature);
         res.status(201).json({
-            id: createResult.id
-          })
+            id: createResult.id,
+            links: {
+                project: `/projects/${projectId}`,
+                feature: `/projects/${projectId}/features/${createResult.id}`,
+              }
+        })
     } catch (error) { res.status(400).json({ error: error }) }
 });
 
-router.put('/:featureId', async (req, res) => {
+//Route to modify an existing feature.
+router.put('/:projectId/features/:featureId', async (req, res) => {
     try {
         const projectId = parseInt(req.params.projectId);
         const featureId =  parseInt(req.params.featureId);
 
         //if user is not a developer or a user of this project, reject.
-        if (req.user.projectId != 1 || req.user.projectId != projectId) {  
+        if (req.user.projectId != 1 && req.user.projectId != projectId) {  
             throw "You are not authorized to edit this feature." 
         }
 
@@ -61,19 +67,24 @@ router.put('/:featureId', async (req, res) => {
         });
 
         if (!updateResult) { throw "Error updating feature" }
-        res.status(201).json({
-            id: updateResult.id
+        res.status(200).send({
+            id: updateResult.id,
+            links: {
+              project: `/projects/${projectId}`,
+              feature: `/projects/${projectId}/features/${featureId}`,
+            }
         });
     } catch (error) { res.status(400).json({ error: error }) }
 });
 
-router.delete('/:featureId', async (req, res) => {    
+//Route to delete a feature.
+router.delete('/:projectId/features/:featureId', async (req, res) => {    
     try {
         const projectId =  parseInt(req.params.projectId);
         const featureId =  parseInt(req.params.featureId);
         
         //if user is not a developer or a user of this project, reject.
-        if (req.user.projectId != 1 || req.user.projectId != projectId) {  
+        if (req.user.projectId != 1 && req.user.projectId != projectId) {  
             throw "You are not authorized to delete this feature." 
         }
 
@@ -88,6 +99,6 @@ router.delete('/:featureId', async (req, res) => {
     
         if (!success) { throw "Error deleting Feature" }
     
-        res.status(201).send()
+        res.status(204).end();
     } catch (error) { res.status(400).json({ error: error }) }
 });

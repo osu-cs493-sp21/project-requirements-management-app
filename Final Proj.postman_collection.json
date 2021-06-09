@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f3b18c06-0d66-43d9-bc67-a1a00463c029",
+		"_postman_id": "580f8885-c1de-4457-b3f1-2550a330fca7",
 		"name": "Final Proj",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -474,6 +474,136 @@
 							"path": [
 								"users",
 								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "features",
+			"item": [
+				{
+					"name": "{featureId}",
+					"item": [
+						{
+							"name": "Delete a feature",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8000/projects//features/1",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										"",
+										"features",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify an existing feature",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"title\": \"MODIFIED Example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create  a new Feature",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"Example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/projects/:projectid/features/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								":projectid",
+								"features",
+								""
+							],
+							"variable": [
+								{
+									"key": "projectid",
+									"value": "1"
+								}
 							]
 						}
 					},
