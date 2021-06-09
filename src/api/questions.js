@@ -30,7 +30,10 @@ router.post('/:projectId/features/:featureId/questions', async (req, res) => {
             throw "Feature not associated with project."
         }
 
-        console.log(req.user);
+        if (!req.body) {
+            throw "Question not defined"
+        }
+
         //Formulate the new question object.
         const question = req.body;
         question.featureId = featureId;
@@ -42,7 +45,7 @@ router.post('/:projectId/features/:featureId/questions', async (req, res) => {
             id: createResult.id,
             links: {
                 project: `/projects/${projectId}`,
-                //feature: `/projects/${projectId}/features/${featureId}`,
+                feature: `/projects/${projectId}/features/${featureId}`,
                 //question: `/projects/${projectId}/features/${featureId}/questions/${createResult.id}`
             }
         });
@@ -77,6 +80,10 @@ router.put('/:projectId/features/:featureId/questions/:questionId', async (req, 
             throw "Feature not associated with project."
         }
 
+        if (!req.body) {
+            throw "Question not defined"
+        }
+
         const question = req.body;
         question.projectId = project.id;
         question.featureId = feature.id;
@@ -93,7 +100,7 @@ router.put('/:projectId/features/:featureId/questions/:questionId', async (req, 
             id: featureId,
             links: {
                 project: `/projects/${projectId}`,
-                //feature: `/projects/${projectId}/features/${featureId}`,
+                feature: `/projects/${projectId}/features/${featureId}`,
                 //question: `/projects/${projectId}/features/${featureId}/questions/${questionId}`
             }
         });
@@ -134,7 +141,7 @@ router.delete('/:projectId/features/:featureId/questions/:questionId', async (re
         const findOneResult = await seqQuestion.findOne({where: {id: questionId}})
         if (!findOneResult) { throw "Question not found" }
 
-        const success = findOneResult.destroy(question);
+        const success = findOneResult.destroy();
         if (!success) { throw "Error deleting Question" }
     
         res.status(204).end();

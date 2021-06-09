@@ -16,9 +16,14 @@ router.post('/:projectId/features/', async (req, res) => {
         if (!project) { 
             throw "Project ID not found in database" 
         }
+ 
+        if (!req.body) {
+            throw "Feature not defined"
+        }
 
-        //reject if feature already exists. 
         const feature = req.body;
+        
+        //reject if feature already exists.
         const existingFeature = await seqFeature.findOne({
             where: {title: feature.title}
         });
@@ -35,7 +40,7 @@ router.post('/:projectId/features/', async (req, res) => {
             id: createResult.id,
             links: {
                 project: `/projects/${projectId}`,
-                //feature: `/projects/${projectId}/features/${createResult.id}`,
+                feature: `/projects/${projectId}/features/${createResult.id}`,
               }
         })
     } catch (error) { res.status(400).json({ error: error }) }
@@ -58,6 +63,10 @@ router.put('/:projectId/features/:featureId', async (req, res) => {
             throw "Project ID not found in database" 
         }
 
+        if (!req.body) {
+            throw "Feature not defined"
+        }
+
         const feature = req.body;
         feature.projectId = project.id;
 
@@ -77,7 +86,7 @@ router.put('/:projectId/features/:featureId', async (req, res) => {
             id: featureId,
             links: {
               project: `/projects/${projectId}`,
-              //feature: `/projects/${projectId}/features/${featureId}`,
+              feature: `/projects/${projectId}/features/${featureId}`,
             }
         });
     } catch (error) { res.status(400).json({ error: error }) }
