@@ -1,158 +1,485 @@
 {
 	"info": {
-		"_postman_id": "a0bfc0ed-e4a1-4014-b7d6-953d8316e452",
+		"_postman_id": "f3b18c06-0d66-43d9-bc67-a1a00463c029",
 		"name": "Final Proj",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create new user",
-			"request": {
-				"auth": {
-					"type": "bearer"
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
+			"name": "project",
+			"item": [
+				{
+					"name": "Create new project",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"jzontosTest\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/projects/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								""
+							]
+						}
 					},
-					{
-						"key": "Authorization",
-						"value": "bearer {{jwt1}}",
-						"type": "text",
-						"disabled": true
-					},
-					{
-						"key": "Authorization",
-						"value": "bearer {{jwt3}}",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"Admin User\",\n    \"email\": \"admin1@gmail.com\",\n    \"password\": \"test\",\n    \"projectId\": 1\n}"
+					"response": []
 				},
-				"url": {
-					"raw": "localhost:8000/users/",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"users",
-						""
-					]
+				{
+					"name": "Get project",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/projects/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get projects",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/projects",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit project",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"NewAxium\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/projects/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete project",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/projects/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								"5"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Log in",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"user1@client1.com\",\n    \"password\": \"test\"\n}"
-				},
-				"url": {
-					"raw": "localhost:8000/users/login/",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"users",
-						"login",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get user photo",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "bearer {{jwt1}}",
-						"type": "text"
+			"name": "user",
+			"item": [
+				{
+					"name": "Create new user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"test User\",\n    \"email\": \"testy@gmail.com\",\n    \"password\": \"test\",\n    \"projectId\": 4\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/users/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								""
+							]
+						}
 					},
-					{
-						"key": "Authorization",
-						"value": "bearer {{jwt3}}",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "localhost:8000/users/1/photo/",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"users",
-						"1",
-						"photo",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get user profile",
-			"request": {
-				"auth": {
-					"type": "noauth"
+					"response": []
 				},
-				"method": "GET",
-				"header": [
-					{
-						"key": "Authorization",
-						"value": "bearer {{jwt1}}",
-						"description": "projectId 1",
-						"type": "text"
+				{
+					"name": "Get users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users"
+							]
+						}
 					},
-					{
-						"key": "Authorization",
-						"value": "bearer {{jwt3}}",
-						"description": "projectId 3",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"url": {
-					"raw": "localhost:8000/users/1",
-					"host": [
-						"localhost"
-					],
-					"port": "8000",
-					"path": [
-						"users",
-						"1"
-					]
+					"response": []
+				},
+				{
+					"name": "Get user profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{jwt1}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/users/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log in",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user1@client1.com\",\n    \"password\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8000/users/login/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user photo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/users/1/photo/",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"1",
+								"photo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Admin User 1\",\n    \"email\": \"admin1@gmail.com\",\n    \"password\": \"newPassword\",\n    \"photoPath\": \"userImages/user1.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/users/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt1}}",
+								"description": "projectId 1",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "bearer {{jwt3}}",
+								"description": "projectId 3",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "localhost:8000/users/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		}
 	]
 }

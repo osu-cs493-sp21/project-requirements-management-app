@@ -1,9 +1,22 @@
 const router = require('express').Router()
 exports.router = router
 
-router.get('/:userId/photo', async (req, res) => {
+router.get('/', async (req, res) => {
+  try {
+    if (req.user.projectId != 1) { throw "You are not authorized to list all projects" }
+
+    const users = await seqUser.findAll()
+
+    if (!users) { throw "Error getting list of users." }
+    res.status(200).json({
+      users
+    })
+  } catch (error) { res.status(400).json({ error: error }) }
+})
+
+router.get('/:id/photo', async (req, res) => {
   try { // TODO: This should return a photo, not json.
-    const userId = parseInt(req.params.userId)
+    const userId = parseInt(req.params.id)
     const userPhoto = await seqUser.findOne({ where: { id: userId } })
     if (req.user.projectId != 1 && req.user.projectId != userPhoto.projectId) { throw "You are not authorized to view this user" }
     if (!userPhoto) { throw "User ID not found in database" }
@@ -41,9 +54,9 @@ router.get('/login/', async (req, res) => {
   } catch (error) { res.status(400).json({ error: error }) }
 })
 
-router.get('/:userid/', async (req, res) => {
+router.get('/:id/', async (req, res) => {
   try {
-    const user = await seqUser.findOne({ where: { id: req.params.userid } })
+    const user = await seqUser.findOne({ where: { id: req.params.id } })
     if (!user) { throw "User not found" }
     if (
       req.user.projectId != 1
@@ -52,3 +65,44 @@ router.get('/:userid/', async (req, res) => {
 
   } catch (error) { res.status(400).json({ error: error }) }
 });
+
+router.put('/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id)
+    if (req.user.projectId != 1 ) { throw "You are not authorized to edit this user" }
+
+    const oldUser = await seqUser.findOne({ where: { id: id } })
+
+    let updateData = {};
+    updateData.name = req.body.name || user.name;
+    updateData.email = req.body.email || user.email;
+    updateData.photoPath = req.body.photoPath || user.photoPath;
+    updateData.password = req.body.password || user.password;
+    const success = await seqUser.update(updateData, { where: { id: id } })
+
+    if (!success) { throw "Error editting Project" }
+    const newUser = await seqUser.findOne({ where: { id: id } })
+
+    res.status(201).json({
+      id: newUser.id,
+      name: newUser.name,
+      email: newUser.email,
+      photoPath: newUser.photoPath,
+      projectId: newUser.projectId
+    })
+  } catch (error) { res.status(400).json({ error: error }) }
+})
+
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id)
+    if (req.user.projectId != 1 ) { throw "You are not authorized to delete this User" }
+
+    const success = await seqUser.destroy({ where: { id: id } });
+
+    if (!success) { throw "Error deleting User" }
+
+    res.status(202).json()
+  } catch (error) { res.status(400).json({ error: error }) }
+})

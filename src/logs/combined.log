@@ -1,0 +1,88 @@
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name`, `email`, `photoPath`, `projectId` FROM `user` AS `user` WHERE `user`.`email` = 'admin1@gmail.com' LIMIT 1;
+Executing (default): INSERT INTO `user` (`id`,`name`,`email`,`password`,`projectId`) VALUES (DEFAULT,?,?,?,?);
+UnauthorizedError: jwt malformed
+    at /Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/express-jwt/lib/index.js:105:22
+    at Object.module.exports [as verify] (/Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/jsonwebtoken/verify.js:63:12)
+    at verifyToken (/Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/express-jwt/lib/index.js:103:13)
+    at fn (/Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/async/lib/async.js:746:34)
+    at /Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/async/lib/async.js:1213:16
+    at /Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/async/lib/async.js:166:37
+    at /Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/async/lib/async.js:706:43
+    at /Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/async/lib/async.js:167:37
+    at Immediate.<anonymous> (/Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/node_modules/async/lib/async.js:1206:34)
+    at processImmediate (node:internal/timers:464:21)
+Executing (default): SELECT `id`, `name`, `email`, `photoPath`, `projectId` FROM `user` AS `user` WHERE `user`.`id` = '1';
+== Server is running on port 8000
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`name` = 'axium' LIMIT 1;
+Executing (default): INSERT INTO `project` (`id`,`name`) VALUES (DEFAULT,?);
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`name` = 'axium' LIMIT 1;
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name` FROM `project` AS `project` WHERE `project`.`id` = 1;
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+/Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/api/projects.js:8
+    const projects = await seqProject..findAll()
+                                      ^
+
+SyntaxError: Unexpected token '.'
+    at Object.compileFunction (node:vm:355:18)
+    at wrapSafe (node:internal/modules/cjs/loader:1022:15)
+    at Module._compile (node:internal/modules/cjs/loader:1056:27)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1121:10)
+    at Module.load (node:internal/modules/cjs/loader:972:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:813:14)
+    at Module.require (node:internal/modules/cjs/loader:996:19)
+    at Module.Hook._require.Module.require (/usr/local/lib/node_modules/pm2/node_modules/require-in-the-middle/index.js:80:39)
+    at require (node:internal/modules/cjs/helpers:92:18)
+    at Object.<anonymous> (/Users/jcz/Desktop/sp21/cloudDev_cs493/hw/project-requirements-management-app/src/api/index.js:4:25)
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+Executing (default): SELECT `id`, `name` FROM `project` AS `project`;
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
+== Server is running on port 8000
