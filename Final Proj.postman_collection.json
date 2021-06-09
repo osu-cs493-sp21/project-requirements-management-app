@@ -74,14 +74,14 @@
 							}
 						],
 						"url": {
-							"raw": "localhost:8000/projects/3",
+							"raw": "localhost:8000/projects/1",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
 								"projects",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -691,6 +691,90 @@
 									],
 									"cookie": [],
 									"body": null
+								},
+								{
+									"name": "Feature not associated with project",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid"
+											],
+											"query": [
+												{
+													"key": "",
+													"value": null,
+													"disabled": true
+												}
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "2"
+												},
+												{
+													"key": "featureid",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "48"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"30-6q3AgnZnImnaxK8jGXkpz/XuOo4\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 18:25:16 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature not associated with project.\"\n}"
 								}
 							]
 						},
@@ -915,6 +999,92 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"error\": \"You are not authorized to edit this feature.\"\n}"
+								},
+								{
+									"name": "Feature not associated with project",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"title\": \"MODIFIED Example feature.\",\r\n    \"description\": \"This is an example feature.\",\r\n    \"notes\": \"Example notes\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "3"
+												},
+												{
+													"key": "featureid",
+													"value": "3"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "48"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"30-6q3AgnZnImnaxK8jGXkpz/XuOo4\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 18:26:30 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature not associated with project.\"\n}"
 								}
 							]
 						}
@@ -1340,13 +1510,13 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{jwt1}}",
-										"type": "text",
-										"disabled": true
+										"type": "text"
 									},
 									{
 										"key": "Authorization",
 										"value": "Bearer {{jwt3}}",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -1379,11 +1549,11 @@
 										},
 										{
 											"key": "featureid",
-											"value": "1"
+											"value": "3"
 										},
 										{
 											"key": "questionid",
-											"value": "1"
+											"value": "2"
 										}
 									]
 								}
@@ -1664,6 +1834,98 @@
 									],
 									"cookie": [],
 									"body": "{\n    \"id\": 2,\n    \"links\": {\n        \"project\": \"/projects/1\"\n    }\n}"
+								},
+								{
+									"name": "Feature not associated with project",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"question\": \"I have modified the test question!\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"questions",
+												":questionid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "4"
+												},
+												{
+													"key": "featureid",
+													"value": "3"
+												},
+												{
+													"key": "questionid",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "48"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"30-6q3AgnZnImnaxK8jGXkpz/XuOo4\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 18:12:06 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature not associated with project.\"\n}"
 								}
 							]
 						},
@@ -1868,6 +2130,88 @@
 									],
 									"cookie": [],
 									"body": null
+								},
+								{
+									"name": "Feature not associated",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/questions/:questionid",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"questions",
+												":questionid"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "3"
+												},
+												{
+													"key": "featureid",
+													"value": "2"
+												},
+												{
+													"key": "questionid",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "48"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"30-6q3AgnZnImnaxK8jGXkpz/XuOo4\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 18:28:05 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature not associated with project.\"\n}"
 								}
 							]
 						}
@@ -2098,6 +2442,994 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"error\": \"You are not authorized to create new questions for this project\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "definitions",
+			"item": [
+				{
+					"name": "{definitionId}",
+					"item": [
+						{
+							"name": "Modify an existing definition",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"definitions",
+										":definitionId"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "3"
+										},
+										{
+											"key": "definitionId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"definitions",
+												":definitionId"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "3"
+												},
+												{
+													"key": "definitionId",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "77"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"4d-QP4QNw8q5x/+41NlytB6+FH2T/E\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 19:13:02 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"id\": 3,\n    \"links\": {\n        \"project\": \"/projects/1\",\n        \"feature\": \"/projects/1/features/3\"\n    }\n}"
+								},
+								{
+									"name": "Feature not found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"definitions",
+												":definitionId"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "44"
+												},
+												{
+													"key": "definitionId",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "44"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"2c-aZqq5DWTp6AW2laImSKJaMdjVxw\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 19:13:47 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature ID not found in database\"\n}"
+								},
+								{
+									"name": "Feature not associated",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"definitions",
+												":definitionId"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "3"
+												},
+												{
+													"key": "featureid",
+													"value": "3"
+												},
+												{
+													"key": "definitionId",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "48"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"30-6q3AgnZnImnaxK8jGXkpz/XuOo4\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 19:14:10 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature not associated with project.\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Delete a definition",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"definitions",
+										":definitionId"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "2"
+										},
+										{
+											"key": "featureid",
+											"value": "3"
+										},
+										{
+											"key": "definitionId",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Feature not found",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"definitions",
+												":definitionId"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "1"
+												},
+												{
+													"key": "featureid",
+													"value": "44"
+												},
+												{
+													"key": "definitionId",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "44"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"2c-aZqq5DWTp6AW2laImSKJaMdjVxw\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 19:13:47 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature ID not found in database\"\n}"
+								},
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"definitions",
+												":definitionId"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "2"
+												},
+												{
+													"key": "featureid",
+													"value": "3"
+												},
+												{
+													"key": "definitionId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 19:19:47 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "Feature not associated with project",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text"
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"definitions",
+												":definitionId"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "2"
+												},
+												{
+													"key": "featureid",
+													"value": "3"
+												},
+												{
+													"key": "definitionId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "48"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"30-6q3AgnZnImnaxK8jGXkpz/XuOo4\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 19:20:10 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"Feature not associated with project.\"\n}"
+								},
+								{
+									"name": "Unauthorized",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt1}}",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "Authorization",
+												"value": "Bearer {{jwt3}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing MODIFIED\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions/:definitionId",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"projects",
+												":projectid",
+												"features",
+												":featureid",
+												"definitions",
+												":definitionId"
+											],
+											"variable": [
+												{
+													"key": "projectid",
+													"value": "2"
+												},
+												{
+													"key": "featureid",
+													"value": "3"
+												},
+												{
+													"key": "definitionId",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "60"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"3c-95o5ISBNVwNxRQH706FAxBibVA8\""
+										},
+										{
+											"key": "Date",
+											"value": "Wed, 09 Jun 2021 19:20:45 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"error\": \"You are not authorized to delete this definition\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Create a new definition",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt1}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt3}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"projects",
+								":projectid",
+								"features",
+								":featureid",
+								"definitions"
+							],
+							"variable": [
+								{
+									"key": "projectid",
+									"value": "1"
+								},
+								{
+									"key": "featureid",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"definitions"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2a-b4EZF0OgXCEIzFwtDTNeaI3CRbU\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Jun 2021 18:56:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 1,\n    \"links\": {\n        \"project\": \"/projects/1\"\n    }\n}"
+						},
+						{
+							"name": "Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt1}}",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{jwt3}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"type\": \"user story\",\r\n    \"name\": \"Testing\",\r\n    \"description\": \"As a developer, I want to be able to test my application.\",\r\n    \"userType\": \"business\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8000/projects/:projectid/features/:featureid/definitions",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"projects",
+										":projectid",
+										"features",
+										":featureid",
+										"definitions"
+									],
+									"variable": [
+										{
+											"key": "projectid",
+											"value": "1"
+										},
+										{
+											"key": "featureid",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "77"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"4d-HgEI0sovBzQKkWit9lLXDKOJZMc\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 09 Jun 2021 18:57:41 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"You are not authorized to create new definitions for this project\"\n}"
 						}
 					]
 				}

@@ -16,10 +16,14 @@ router.post('/:projectId/features/', async (req, res) => {
         if (!project) {
             throw "Project ID not found in database"
         }
+ 
+        if (!req.body) {
+            throw "Feature not defined"
+        }
 
-        //reject if feature already exists. 
-        //TODO: How do we check whether feature exists only in project.
         const feature = req.body;
+        
+        //reject if feature already exists.
         const existingFeature = await seqFeature.findOne({
             where: { title: feature.title }
         });
@@ -36,8 +40,8 @@ router.post('/:projectId/features/', async (req, res) => {
             id: createResult.id,
             links: {
                 project: `/projects/${projectId}`,
-                //feature: `/projects/${projectId}/features/${createResult.id}`,
-            }
+                feature: `/projects/${projectId}/features/${createResult.id}`,
+              }
         })
     } catch (error) { res.status(400).json({ error: error }) }
 });
@@ -59,17 +63,30 @@ router.put('/:projectId/features/:featureId', async (req, res) => {
             throw "Project ID not found in database"
         }
 
+        if (!req.body) {
+            throw "Feature not defined"
+        }
+
+        const feature = req.body;
+        feature.projectId = project.id;
+
         //update the feature
-        const updateResult = await seqFeature.update(req.body, {
-            where: { id: featureId }
-        });
+        const findOneResult = await seqFeature.findOne({where: {id: featureId}})
+        if (!findOneResult) { throw "Feature not found." }
+
+        //check to see whether the feature is associated with this project
+        if (findOneResult.projectId != project.id) {
+            throw "Feature not associated with project."
+        }
+
+        const updateResult = findOneResult.update(feature);
 
         if (!updateResult) { throw "Error updating feature" }
         res.status(200).send({
             id: featureId,
             links: {
-                project: `/projects/${projectId}`,
-                //feature: `/projects/${projectId}/features/${featureId}`,
+              project: `/projects/${projectId}`,
+              feature: `/projects/${projectId}/features/${featureId}`,
             }
         });
     } catch (error) { res.status(400).json({ error: error }) }
@@ -93,10 +110,17 @@ router.delete('/:projectId/features/:featureId', async (req, res) => {
         }
 
         //delete the feature
-        const success = await seqFeature.destroy({ where: { id: featureId } });
+        const findOneResult = await seqFeature.findOne({where: {id: featureId}})
+        if (!findOneResult) { throw "Feature not found." }
 
-        if (!success) { throw "Error deleting Feature" }
+        //check to see whether the feature is associated with this project
+        if (findOneResult.projectId != project.id) {
+            throw "Feature not associated with project."
+        }
 
+        const deleteResult = findOneResult.destroy(feature);
+        if (!deleteResult) { throw "Error deleting feature" }
+    
         res.status(204).end();
     } catch (error) { res.status(400).json({ error: error }) }
 });
