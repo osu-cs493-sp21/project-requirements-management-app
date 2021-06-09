@@ -13,8 +13,9 @@ const app = express()
 const port = process.env.PORT || 8000
 
 app.use(express.json())
-app.use(express.static('public'))
-app.use(express.static('userImages'))
+
+var path = require('path');
+global.appRoot = path.resolve(__dirname);
 
 global.ejwt = require('express-jwt')
 global.jwt = require('jsonwebtoken')
@@ -39,6 +40,8 @@ app.use(function (req, res, next) {
 
 const rateLimit = require('./rate-limit');
 app.use(rateLimit);
+
+app.use('/userImages', express.static('userImages'))
 
 const api = require('./api')
 app.use('/', api)

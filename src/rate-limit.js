@@ -40,6 +40,11 @@ function saveUserTokenBucket(ip, tokenBucket) {
 
 module.exports = async function rateLimit(req, res, next) {
   try {
+    if (req.user.projectId == 1) {
+      next()
+      return
+    }
+    
     const tokenBucket = await getUserTokenBucket(req.ip);
 
     const currentTimestamp = Date.now();
