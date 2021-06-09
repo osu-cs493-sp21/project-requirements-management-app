@@ -7,21 +7,21 @@ router.post('/:projectId/features/', async (req, res) => {
         const projectId = parseInt(req.params.projectId);
 
         //if user is not a developer or a user of this project, reject.
-        if (req.user.projectId != 1 && req.user.projectId != projectId) {  
-            throw "You are not authorized to create new features for this project" 
+        if (req.user.projectId != 1 && req.user.projectId != projectId) {
+            throw "You are not authorized to create new features for this project"
         }
 
         //check to see whether there is a project with the given id.
         const project = await seqProject.findOne({ where: { id: projectId } })
-        if (!project) { 
-            throw "Project ID not found in database" 
+        if (!project) {
+            throw "Project ID not found in database"
         }
 
         //reject if feature already exists. 
         //TODO: How do we check whether feature exists only in project.
         const feature = req.body;
         const existingFeature = await seqFeature.findOne({
-            where: {title: feature.title}
+            where: { title: feature.title }
         });
         if (existingFeature) {
             throw "Feature name already exists"
@@ -37,7 +37,7 @@ router.post('/:projectId/features/', async (req, res) => {
             links: {
                 project: `/projects/${projectId}`,
                 //feature: `/projects/${projectId}/features/${createResult.id}`,
-              }
+            }
         })
     } catch (error) { res.status(400).json({ error: error }) }
 });
@@ -46,17 +46,17 @@ router.post('/:projectId/features/', async (req, res) => {
 router.put('/:projectId/features/:featureId', async (req, res) => {
     try {
         const projectId = parseInt(req.params.projectId);
-        const featureId =  parseInt(req.params.featureId);
+        const featureId = parseInt(req.params.featureId);
 
         //if user is not a developer or a user of this project, reject.
-        if (req.user.projectId != 1 && req.user.projectId != projectId) {  
-            throw "You are not authorized to edit this feature." 
+        if (req.user.projectId != 1 && req.user.projectId != projectId) {
+            throw "You are not authorized to edit this feature."
         }
 
         //check to see whether there is a project with the given id.
         const project = await seqProject.findOne({ where: { id: projectId } })
-        if (!project) { 
-            throw "Project ID not found in database" 
+        if (!project) {
+            throw "Project ID not found in database"
         }
 
         //update the feature
@@ -68,35 +68,89 @@ router.put('/:projectId/features/:featureId', async (req, res) => {
         res.status(200).send({
             id: featureId,
             links: {
-              project: `/projects/${projectId}`,
-              //feature: `/projects/${projectId}/features/${featureId}`,
+                project: `/projects/${projectId}`,
+                //feature: `/projects/${projectId}/features/${featureId}`,
             }
         });
     } catch (error) { res.status(400).json({ error: error }) }
 });
 
 //Route to delete a feature.
-router.delete('/:projectId/features/:featureId', async (req, res) => {    
+router.delete('/:projectId/features/:featureId', async (req, res) => {
     try {
-        const projectId =  parseInt(req.params.projectId);
-        const featureId =  parseInt(req.params.featureId);
-        
+        const projectId = parseInt(req.params.projectId);
+        const featureId = parseInt(req.params.featureId);
+
         //if user is not a developer or a user of this project, reject.
-        if (req.user.projectId != 1 && req.user.projectId != projectId) {  
-            throw "You are not authorized to delete this feature." 
+        if (req.user.projectId != 1 && req.user.projectId != projectId) {
+            throw "You are not authorized to delete this feature."
         }
 
         //check to see whether there is a project with the given id.
         const project = await seqProject.findOne({ where: { id: projectId } })
-        if (!project) { 
-            throw "Project ID not found in database" 
+        if (!project) {
+            throw "Project ID not found in database"
         }
-        
+
         //delete the feature
         const success = await seqFeature.destroy({ where: { id: featureId } });
-    
+
         if (!success) { throw "Error deleting Feature" }
-    
+
         res.status(204).end();
+    } catch (error) { res.status(400).json({ error: error }) }
+});
+
+//Route to get all features, including their definitions and questions (paginated)
+router.get('/:projectId/features/', async (req, res) => {
+    try {
+        const projectId = parseInt(req.params.projectId)
+
+        // If the user is not a developer or a user of this project, reject
+        if (req.user.projectId != 1 && req.user.projectId != projectId) {
+            throw "You are not authorized to access this project"
+        }
+
+        // Compute page number based on optional query string parameter `page`
+        // Make sure page is within allowed bounds
+        let page = parseInt(req.query.page) || 1
+        const numPerPage = 5
+        const featuresCount = await seqFeature.count({ where: { projectId: projectId } })
+        if (!featuresCount) { throw "Project has no features, or was not found in database" }
+        const lastPage = Math.ceil(featuresCount / numPerPage)
+        page = page > lastPage ? lastPage : page
+        page = page < 1 ? 1 : page
+
+        // Calculate starting and ending indices of businesses on requested page and
+        // slice out the corresponsing sub-array of busibesses.
+        const start = (page - 1) * numPerPage;
+        const end = start + numPerPage;
+        const pageOfFeatures = await seqFeature.findAll({
+            where: { projectId: projectId },
+            offset: start,
+            limit: numPerPage,
+            include: [seqDefinition, seqQuestion]
+        })
+
+        const links = {};
+        if (page < lastPage) {
+            links.nextPage = `/businesses?page=${page + 1}`;
+            links.lastPage = `/businesses?page=${lastPage}`;
+        }
+        if (page > 1) {
+            links.prevPage = `/businesses?page=${page - 1}`;
+            links.firstPage = '/businesses?page=1';
+        }
+
+        res.status(200).json({
+            features: pageOfFeatures,
+            pageNumber: page,
+            totalPages: lastPage,
+            pageSize: numPerPage,
+            totalCount: featuresCount,
+            links: links
+          });
+
+        res.status(200).json({ length: businessesLength, last: lastPage });
     } catch (error) { res.status(400).json({ error: error }) }
 });
