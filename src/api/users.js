@@ -2,7 +2,7 @@ const router = require('express').Router()
 exports.router = router
 
 router.get('/:userId/photo', async (req, res) => {
-  try { // TODO: This should return a photo, not json. The url is retrieved with user endpoint
+  try { // TODO: This should return a photo, not json.
     const userId = parseInt(req.params.userId)
     const userPhoto = await seqUser.findOne({ where: { id: userId } })
     if (req.user.projectId != 1 && req.user.projectId != userPhoto.projectId) { throw "You are not authorized to view this user" }
@@ -33,9 +33,10 @@ router.get('/login/', async (req, res) => {
   try {
     const user = await seqUser.scope("includePassword").findOne({ where: { email: req.body.email } })
     if (!user || !(await user.checkPassword(req.body.password))) { throw "Invalid email or password" }
-    const token = jwt.sign({
-      projectId: user.projectId
-    }, jwtSecret, { expiresIn: '30d' })
+    const token = jwt.sign(
+      { projectId: user.projectId },
+      jwtSecret,
+      { expiresIn: '30d' })
     res.status(200).json({ jwt: token })
   } catch (error) { res.status(400).json({ error: error }) }
 })

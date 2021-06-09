@@ -6,19 +6,34 @@
 	},
 	"item": [
 		{
-			"name": "New User",
+			"name": "Create new user",
 			"request": {
+				"auth": {
+					"type": "bearer"
+				},
 				"method": "POST",
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "",
+						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt1}}",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt3}}",
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Luke Skywalker\",\n    \"email\": \"TheLastJedi@gmail.com\",\n    \"password\": \"test\"\n}"
+					"raw": "{\n    \"name\": \"Admin User\",\n    \"email\": \"admin1@gmail.com\",\n    \"password\": \"test\",\n    \"projectId\": 1\n}"
 				},
 				"url": {
 					"raw": "localhost:8000/users/",
@@ -35,10 +50,58 @@
 			"response": []
 		},
 		{
-			"name": "Get photo",
+			"name": "Log in",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"user1@client1.com\",\n    \"password\": \"test\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8000/users/login/",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"login",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user photo",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt1}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt3}}",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
 					"raw": "localhost:8000/users/1/photo/",
 					"host": [
@@ -50,6 +113,42 @@
 						"1",
 						"photo",
 						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user profile",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt1}}",
+						"description": "projectId 1",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "bearer {{jwt3}}",
+						"description": "projectId 3",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8000/users/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"users",
+						"1"
 					]
 				}
 			},
