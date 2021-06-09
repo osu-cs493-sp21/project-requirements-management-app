@@ -34,7 +34,7 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-    if (req.user.projectId != 1 && req.user.projectId != id) { throw "You are not authorized to view this user" }
+    if (req.user.projectId != 1 && req.user.projectId != id) { throw "You are not authorized to view this project" }
 
     const project = await seqProject.findOne({ where: { id: id } })
 
@@ -59,13 +59,11 @@ router.get('/:id', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-    if (req.user.projectId != 1 ) { throw "You are not authorized to view this user" }
+    if (req.user.projectId != 1 ) { throw "You are not authorized to edit this project" }
 
     if (!req.body.name) { throw "Invalid request body." }
 
-    const success = await seqProject.update({ name: req.body.name }, {
-                      where: { id: id }
-                    });
+    const success = await seqProject.update({ name: req.body.name }, { where: { id: id } });
 
     if (!success) { throw "Error editting Project" }
     const project = await seqProject.findOne({ where: { id: id } })
@@ -80,7 +78,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id)
-    if (req.user.projectId != 1 ) { throw "You are not authorized to view this user" }
+    if (req.user.projectId != 1 ) { throw "You are not authorized to delete this project" }
 
     const success = await seqProject.destroy({ where: { id: id } });
 
