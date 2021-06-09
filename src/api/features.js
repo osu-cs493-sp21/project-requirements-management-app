@@ -18,7 +18,6 @@ router.post('/:projectId/features/', async (req, res) => {
         }
 
         //reject if feature already exists. 
-        //TODO: How do we check whether feature exists only in project.
         const feature = req.body;
         const existingFeature = await seqFeature.findOne({
             where: {title: feature.title}
@@ -59,10 +58,19 @@ router.put('/:projectId/features/:featureId', async (req, res) => {
             throw "Project ID not found in database" 
         }
 
+        const feature = req.body;
+        feature.projectId = project.id;
+
         //update the feature
-        const updateResult = await seqFeature.update(req.body, {
-            where: { id: featureId }
-        });
+        const findOneResult = await seqFeature.findOne({where: {id: featureId}})
+        if (!findOneResult) { throw "Feature not found." }
+
+        //check to see whether the feature is associated with this project
+        if (findOneResult.projectId != project.id) {
+            throw "Feature not associated with project."
+        }
+
+        const updateResult = findOneResult.update(feature);
 
         if (!updateResult) { throw "Error updating feature" }
         res.status(200).send({
@@ -93,9 +101,16 @@ router.delete('/:projectId/features/:featureId', async (req, res) => {
         }
         
         //delete the feature
-        const success = await seqFeature.destroy({ where: { id: featureId } });
-    
-        if (!success) { throw "Error deleting Feature" }
+        const findOneResult = await seqFeature.findOne({where: {id: featureId}})
+        if (!findOneResult) { throw "Feature not found." }
+
+        //check to see whether the feature is associated with this project
+        if (findOneResult.projectId != project.id) {
+            throw "Feature not associated with project."
+        }
+
+        const deleteResult = findOneResult.destroy(feature);
+        if (!deleteResult) { throw "Error deleting feature" }
     
         res.status(204).end();
     } catch (error) { res.status(400).json({ error: error }) }

@@ -25,6 +25,11 @@ router.post('/:projectId/features/:featureId/questions', async (req, res) => {
             throw "Feature ID not found in database" 
         }
 
+        //check to see whether the feature is associated with this project
+        if (feature.projectId != project.id) {
+            throw "Feature not associated with project."
+        }
+
         console.log(req.user);
         //Formulate the new question object.
         const question = req.body;
@@ -67,10 +72,20 @@ router.put('/:projectId/features/:featureId/questions/:questionId', async (req, 
             throw "Feature ID not found in database" 
         }
 
+         //check to see whether the feature is associated with this project
+         if (feature.projectId != project.id) {
+            throw "Feature not associated with project."
+        }
+
+        const question = req.body;
+        question.projectId = project.id;
+        question.featureId = feature.id;
+
         //update the question
-        const updateResult = await seqFeature.update(req.body, {
-            where: { id: questionId }
-        });
+        const findOneResult = await seqQuestion.findOne({where: {id: questionId}})
+        if (!findOneResult) { throw "Question not found" }
+
+        const updateResult = findOneResult.update(question);
 
         if (!updateResult) { throw "Error updating question" }
 
@@ -110,9 +125,16 @@ router.delete('/:projectId/features/:featureId/questions/:questionId', async (re
             throw "Feature ID not found in database" 
         }
 
+        //check to see whether the feature is associated with this project
+        if (feature.projectId != project.id) {
+            throw "Feature not associated with project."
+        }
+
         //delete the question in the db
-        const success = await seqQuestion.destroy({ where: { id: questionId } });
-    
+        const findOneResult = await seqQuestion.findOne({where: {id: questionId}})
+        if (!findOneResult) { throw "Question not found" }
+
+        const success = findOneResult.destroy(question);
         if (!success) { throw "Error deleting Question" }
     
         res.status(204).end();
