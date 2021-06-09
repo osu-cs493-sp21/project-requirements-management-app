@@ -37,6 +37,9 @@ app.use(function (req, res, next) {
 //   next()
 // })
 
+const rateLimit = require('./rate-limit');
+app.use(rateLimit);
+
 const api = require('./api')
 app.use('/', api)
 
