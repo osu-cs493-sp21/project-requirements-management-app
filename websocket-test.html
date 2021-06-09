@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project Requirements Search</title>
+
+    <style>
+      #message {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>Project Requirements Search</h1>
+
+    <input type="text" id="search">
+    <button onclick="submit()" id="search_btn">Search</button>
+
+    <div id="message">
+      <i>Search results will appear here!</i>
+    </div>
+
+    <ul id="response"></ul>
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+
+  <script>
+    const socket = io('http://localhost:8000')
+
+    function submit() {
+      const messageElem = document.getElementById('message');
+      const buttonElem = document.getElementById('search_btn');
+      const queryElem = document.getElementById('search');
+
+      const query = queryElem.value;
+
+      buttonElem.disabled = true;
+
+      socket.emit('search', query, (response) => {
+        const responseElem = document.getElementById('response');
+
+        queryElem.value = '';
+        buttonElem.disabled = false;
+
+        if (response.length > 0) {
+          messageElem.innerHTML = `<i>Search results for "${query}":</i>`;
+          responseElem.innerHTML = response.map(i => {
+            if (i.entity === 'feature') {
+              return `<li>(${i.entity}) ${i.title}: ${i.description}</li>`
+            }
+
+            if (i.entity === 'question') {
+              return `<li>(${i.entity}) ${i.question}</li>`
+            }
+
+            if (i.entity === 'definition') {
+              return `<li>(${i.entity}) ${i.name}: ${i.description}</li>`
+            }
+          }).join('\n');
+        } else {
+          messageElem.innerHTML = `<i>No search results for "${query}"</i>`;
+          responseElem.innerHTML = '';
+        }
+      });
+    }
+  </script>
+</html>
