@@ -41,10 +41,10 @@ router.get('/:id', async (req, res) => {
 
     features = await seqFeature.findAll({ where: { ProjectId: id } })
 
-    //get the questions and definition for each feature
+    //get the count of questions and definition for each feature
     const setFeatureFields = features.map(async (feature) => {
-      feature.setDataValue("definitions", await seqDefinition.findAll({ where:{ featureId: feature.id } }))
-      feature.setDataValue("questions", await seqQuestion.findAll({ where: { featureId: feature.id } }));
+      feature.setDataValue("definitions", await seqDefinition.count({ where:{ featureId: feature.id } }))
+      feature.setDataValue("questions", await seqQuestion.count({ where: { featureId: feature.id } }));
     });
 
     //once the questions and definitions are retrieved, we can return the results
