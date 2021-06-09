@@ -1,16 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Project Management Search</title>
+    <title>Project Requirements Search</title>
+
+    <style>
+      #message {
+        margin: 10px 0;
+      }
+    </style>
   </head>
 
   <body>
-    <input type="text" id="search">
-    <button onclick="submit()">Search</button>
+    <h1>Project Requirements Search</h1>
 
-    <ul id="response">
+    <input type="text" id="search">
+    <button onclick="submit()" id="search_btn">Search</button>
+
+    <div id="message">
       <i>Search results will appear here!</i>
-    </ul>
+    </div>
+
+    <ul id="response"></ul>
   </body>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
@@ -19,11 +29,23 @@
     const socket = io('http://localhost:8000')
 
     function submit() {
-      const query = document.getElementById('search').value;
+      const messageElem = document.getElementById('message');
+      const buttonElem = document.getElementById('search_btn');
+      const queryElem = document.getElementById('search');
+
+      const query = queryElem.value;
+
+      buttonElem.disabled = true;
 
       socket.emit('search', query, (response) => {
+        const responseElem = document.getElementById('response');
+
+        queryElem.value = '';
+        buttonElem.disabled = false;
+
         if (response.length > 0) {
-          document.getElementById('response').innerHTML = response.map(i => {
+          messageElem.innerHTML = `<i>Search results for "${query}":</i>`;
+          responseElem.innerHTML = response.map(i => {
             if (i.entity === 'feature') {
               return `<li>(${i.entity}) ${i.title}: ${i.description}</li>`
             }
@@ -37,7 +59,8 @@
             }
           }).join('\n');
         } else {
-          document.getElementById('response').innerHTML = `<i>No search results for "${query}"</i>`;
+          messageElem.innerHTML = `<i>No search results for "${query}"</i>`;
+          responseElem.innerHTML = '';
         }
       });
     }
