@@ -1,35 +1,40 @@
-const { Sequelize } = require('sequelize');
+const { Op } = require('sequelize');
 
-const getCondition = (column, query) =>
-  Sequelize.where(
-    Sequelize.fn('lower', Sequelize.col(column)),
-    { $like: `%${query}%` }
-  )
-
+const getCondition = (column, query) => ({
+  [column]: {
+    [Op.like]: `%${query}%`,
+  },
+});
 
 module.exports = (io) => {
   io.on('connection', (socket) => {
     socket.on('search', async (query, callback) => {
       const features = await seqFeature.findAll({
-        $or: [
-          getCondition('title', query),
-          getCondition('description', query),
-          getCondition('notes', query),
-        ]
+        where: {
+          [Op.or]: [
+            getCondition('title', query),
+            getCondition('description', query),
+            getCondition('notes', query),
+          ],
+        },
       });
 
       const questions = await seqQuestion.findAll({
-        $or: [
-          getCondition('question', query),
-        ]
+        where: {
+          [Op.or]: [
+            getCondition('question', query),
+          ],
+        },
       });
 
       const definitions = await seqDefinition.findAll({
-        $or: [
-          getCondition('type', query),
-          getCondition('name', query),
-          getCondition('description', query),
-        ]
+        where: {
+          [Op.or]: [
+            getCondition('type', query),
+            getCondition('name', query),
+            getCondition('description', query),
+          ],
+        },
       });
 
       const response = [

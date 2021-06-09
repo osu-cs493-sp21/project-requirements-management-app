@@ -50,5 +50,10 @@ const server = app.listen(port, function () {
   console.log("== Server is running on port", port)
 })
 
-const io = new socket.Server(server)
+const io = new socket.Server(server, {
+  cors: {
+    origin: '*',
+  },
+})
+
 require('./socket.js')(io);

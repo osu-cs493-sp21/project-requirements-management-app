@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project Management Search</title>
+  </head>
+
+  <body>
+    <input type="text" id="search">
+    <button onclick="submit()">Search</button>
+
+    <ul id="response">
+      <i>Search results will appear here!</i>
+    </ul>
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+
+  <script>
+    const socket = io('http://localhost:8000')
+
+    function submit() {
+      const query = document.getElementById('search').value;
+
+      socket.emit('search', query, (response) => {
+        if (response.length > 0) {
+          document.getElementById('response').innerHTML = response.map(i => {
+            if (i.entity === 'feature') {
+              return `<li>(${i.entity}) ${i.title}: ${i.description}</li>`
+            }
+
+            if (i.entity === 'question') {
+              return `<li>(${i.entity}) ${i.question}</li>`
+            }
+
+            if (i.entity === 'definition') {
+              return `<li>(${i.entity}) ${i.name}: ${i.description}</li>`
+            }
+          }).join('\n');
+        } else {
+          document.getElementById('response').innerHTML = `<i>No search results for "${query}"</i>`;
+        }
+      });
+    }
+  </script>
+</html>
