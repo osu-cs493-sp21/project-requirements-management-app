@@ -366,31 +366,41 @@
 					"response": []
 				},
 				{
-					"name": "Get user photo",
+					"name": "Put user photo",
 					"request": {
-						"method": "GET",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Authorization",
 								"value": "bearer {{jwt1}}",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "Authorization",
 								"value": "bearer {{jwt3}}",
-								"type": "text",
-								"disabled": true
+								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/home/jeremiah/Pictures/ducks.jpg"
+								}
+							]
+						},
 						"url": {
-							"raw": "localhost:8000/users/1/photo/",
+							"raw": "localhost:8000/users/3/photo/",
 							"host": [
 								"localhost"
 							],
 							"port": "8000",
 							"path": [
 								"users",
-								"1",
+								"3",
 								"photo",
 								""
 							]
