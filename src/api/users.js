@@ -47,7 +47,10 @@ router.get('/login/', async (req, res) => {
     const user = await seqUser.scope("includePassword").findOne({ where: { email: req.body.email } })
     if (!user || !(await user.checkPassword(req.body.password))) { throw "Invalid email or password" }
     const token = jwt.sign(
-      { projectId: user.projectId },
+      { 
+        id: user.id,
+        projectId: user.projectId 
+      },
       jwtSecret,
       { expiresIn: '30d' })
     res.status(200).json({ jwt: token })
