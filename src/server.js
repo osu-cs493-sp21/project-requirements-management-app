@@ -19,20 +19,20 @@ global.jwtSecret = "hegeon4ebnjk5tsn9wg0"
 // Instead of using the built in `credentialsRequired`, we just use custom checks
 app.use(ejwt({ secret: jwtSecret, algorithms: ['HS256'], credentialsRequired: false }))
 // This ensures a jwt is detected before serving any other endpoints (except login)
-// app.use(function (req, res, next) {
-//   if (!req.user && !req.path.startsWith('/users/login')) {
-//     res.status(400).json({ error: "Missing or invalid jwt" })
-//     return
-//   }
-//   next()
-// })
+app.use(function (req, res, next) {
+  if (!req.user && !req.path.startsWith('/users/login')) {
+    res.status(400).json({ error: "Missing or invalid jwt" })
+    return
+  }
+  next()
+})
 
 // This bypasses all auth, comment this out to test auth
 // Also uncomment the block above
-app.use(function (req, res, next) {
-  req.user = { projectId: 1 }
-  next()
-})
+// app.use(function (req, res, next) {
+//   req.user = { projectId: 1 }
+//   next()
+// })
 
 const api = require('./api')
 app.use('/', api)
