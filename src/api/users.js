@@ -46,7 +46,7 @@ router.put('/:userId/photo', upload.single('photo'), async (req, res) => {
     const user = await seqUser.findOne({ where: { id: userId } })
     if (!user) { throw "User ID not found in database" }
     if (req.user.projectId != 1 && req.user.projectId != user.projectId) {
-      throw "You are not authorized to view this user"
+      throw "You are not authorized to edit this user"
     }
 
     user.photoPath = `/userImages/${req.file.filename}`
@@ -65,7 +65,7 @@ router.post('/', async (req, res) => {
     await seqUser.build(user).validate()
     const existingUser = await seqUser.findOne({ where: { email: user.email } })
     if (existingUser) { throw "Account already exists" }
-    let createResult = await newUser.save()
+    let createResult = await seqUser.create(user)
     res.status(201).json({
       id: createResult.id,
       links: {
@@ -110,8 +110,9 @@ router.put('/:userId', async (req, res) => {
   try {
     const userId = parseInt(req.params.userId)
     if (isNaN(userId)) { throw "User ID in path is not valid" }
-    const newUserData = req.body
     if (req.user.projectId != 1) { throw "You are not authorized to edit users" }
+
+    const newUserData = req.body
     const user = await seqUser.findOne({ where: { id: userId } })
     if (!user) { throw "User not found" }
     const success = await user.update(newUserData)
