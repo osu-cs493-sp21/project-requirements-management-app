@@ -37,22 +37,25 @@ router.get('/:id', async (req, res) => {
     if (req.user.projectId != 1 && req.user.projectId != id) { throw "You are not authorized to view this project" }
 
     const project = await seqProject.findOne({ where: { id: id } })
+    if (!project) { throw "Project ID not found in database" }
 
     features = await seqFeature.findAll({ where: { ProjectId: id } })
 
-    for (i in features){
-      definitions = await seqDefinition.findAll({ where:{ featureId: features[i].id } })
-      questions = await seqQuestion.findAll({ where: { featureId: features[i].id } })
-    }
+    //get the questions and definition for each feature
+    const setFeatureFields = features.map(async (feature) => {
+      feature.setDataValue("definitions", await seqDefinition.findAll({ where:{ featureId: feature.id } }))
+      feature.setDataValue("questions", await seqQuestion.findAll({ where: { featureId: feature.id } }));
+    });
 
-    if (!project) { throw "Project ID not found in database" }
-    res.status(200).json({
-      id: project.id,
-      name: project.name,
-      features: features,
-      definitions: definitions,
-      questions: questions
+    //once the questions and definitions are retrieved, we can return the results
+    Promise.all(setFeatureFields).then(() => {
+        res.status(200).json({
+          id: project.id,
+          name: project.name,
+          features: features
+        })
     })
+    
   } catch (error) { res.status(400).json({ error: error }) }
 })
 
