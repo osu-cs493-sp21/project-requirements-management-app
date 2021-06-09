@@ -15,7 +15,7 @@ services:
   redis:
     image: redis:5-alpine
     ports:
-      - 6379:6379
+      - ${REDIS_PORT}:${REDIS_PORT}
 #  nodejs:
 #    image: keymetrics/pm2:14-alpine
 #    container_name: final_node
